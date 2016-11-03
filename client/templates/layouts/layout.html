@@ -1,0 +1,20 @@
+<template name="layout">
+
+    <!-- Splash screen -->
+    {{>splash }}
+
+    <!-- Header -->
+    {{> header }}
+
+    <!-- Navigation -->
+    {{> navigation }}
+
+    <!-- Main Wrapper -->
+    <div id="wrapper">
+        {{> yield}}
+
+        <!-- Footer -->
+        {{> footer }}
+    </div>
+
+</template>
