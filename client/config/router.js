@@ -14,9 +14,11 @@ Router.route('/', function () {
 Router.route('/main', {
 	onBeforeAction: function () {
 		if (Meteor.userId()) {
-			this.next();
+			this.render('main');
+			this.layout('layout');
 		} else {
 			Router.go('login');
+			this.next();
 		}
 	}
 });
