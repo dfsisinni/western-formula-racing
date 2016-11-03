@@ -21,9 +21,28 @@ Router.route('/main', {
 	}
 });
 
-Router.route('/login', function () {
-	this.render('login');
-	this.layout('blankLayout');
+Router.route('/register', {
+	onBeforeAction: function () {
+		if (Meteor.userId()) {
+			Router.go('main');
+			this.next();
+		} else {
+			this.render('register');
+			this.layout('blankLayout');
+		}
+	}
+});
+
+Router.route('/login', {
+	onBeforeAction: function () {
+		if (Meteor.userId()) {
+			Router.go('main');
+			this.next();
+		} else {
+			this.render('login');
+			this.layout('blankLayout');
+		}
+	}
 });
 
 
