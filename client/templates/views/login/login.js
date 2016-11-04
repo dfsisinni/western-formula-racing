@@ -16,7 +16,15 @@ Template.login.events({
 
 
 			} else {
-				Router.go('main');
+
+
+				if (Meteor.user().profile.confirmed) {
+					Router.go('sponsors');
+				} else {
+					Router.go('awaitingValidation');
+				}
+
+				
 			}
 		});
 

@@ -15,9 +15,17 @@ Template.register.events ({
 					name: name,
 					confirmed: false
 				}
+			}, function (error) {
+				if (error) {
+					toastr.error(error.reason);
+				} else {
+					toastr.success("Account Created!");
+
+					Router.go('awaitingValidation');
+				}
 			});
 
-			toastr.success("Account Created!");
+			
 		}
 
 	}

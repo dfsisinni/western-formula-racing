@@ -8,42 +8,70 @@ Router.configure({
 //
 
 Router.route('/', function () {
-    Router.go('main');
+    Router.go('sponsors');
 });
 
-Router.route('/main', {
+Router.route('/sponsors', {
 	onBeforeAction: function () {
 		if (Meteor.userId()) {
-			this.render('main');
-			this.layout('layout');
+			if (Meteor.user().profile.confirmed) {
+				this.render('sponsors');
+				this.layout('layout');
+			} else {
+				Router.go('awaitingValidation');
+			}
 		} else {
 			Router.go('login');
-			this.next();
 		}
+
+		this.next();
 	}
 });
 
 Router.route('/register', {
 	onBeforeAction: function () {
 		if (Meteor.userId()) {
-			Router.go('main');
-			this.next();
+			Router.go('sponsors');
 		} else {
 			this.render('register');
 			this.layout('blankLayout');
 		}
+
+		this.next();
 	}
 });
 
 Router.route('/login', {
 	onBeforeAction: function () {
 		if (Meteor.userId()) {
-			Router.go('main');
-			this.next();
+			if (Meteor.user().profile.confirmed) {
+				Router.go('sponsors');
+			} else {
+				Router.go('awaitingValidation');
+			}
 		} else {
 			this.render('login');
 			this.layout('blankLayout');
 		}
+
+		this.next();
+	}
+});
+
+Router.route('/awaitingValidation', {
+	onBeforeAction: function () {
+		if (Meteor.userId()) {
+			if (Meteor.user().profile.confirmed) {
+				Router.go('sponsors');
+			} else {
+				this.render('awaitingValidation');
+				this.layout('blankLayout');
+			}	
+		} else {
+			Router.go('login');
+		} 
+
+		this.next();
 	}
 });
 
